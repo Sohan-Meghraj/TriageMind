@@ -1,0 +1,14 @@
+[
+  {
+    "id": "t1",
+    "text": "My order arrived but the box was dented. I'd like a refund please. My email is alex@example.com.",
+    "expected": { "severity": "LOW", "action": "AUTO_RESOLVE" },
+    "note": "Routine refund — should auto-resolve with high confidence."
+  },
+  {
+    "id": "t2",
+    "text": "This is the third time my delivery is late and support ignored me. I'm furious and talking to a lawyer — cancel everything.",
+    "expected": { "severity": "HIGH", "action": "ESCALATE" },
+    "note": "Churn risk + legal mention — should escalate."
+  }
+]
