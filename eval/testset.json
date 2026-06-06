@@ -2,13 +2,22 @@
   {
     "id": "t1",
     "text": "My order arrived but the box was dented. I'd like a refund please. My email is alex@example.com.",
-    "expected": { "severity": "LOW", "action": "AUTO_RESOLVE" },
-    "note": "Routine refund — should auto-resolve with high confidence."
+    "customerEmail": "alex@example.com",
+    "expected": { "severity": "LOW", "action": "REQUEST_EVIDENCE" },
+    "note": "Damage claim, $89.99, no photo — politely request a photo before refunding (could be genuine or fraudulent; verify either way)."
   },
   {
     "id": "t2",
     "text": "This is the third time my delivery is late and support ignored me. I'm furious and talking to a lawyer — cancel everything.",
     "expected": { "severity": "HIGH", "action": "ESCALATE" },
-    "note": "Churn risk + legal mention — should escalate."
+    "note": "Churn risk + legal mention — escalates to a human, not a photo request."
+  },
+  {
+    "id": "t3",
+    "text": "My item arrived damaged — I've attached a photo of it. Could I get a refund? Email sam@example.com.",
+    "customerEmail": "sam@example.com",
+    "hasPhoto": true,
+    "expected": { "severity": "LOW", "action": "AUTO_RESOLVE" },
+    "note": "Same kind of damage claim, but evidence already provided — gate does not re-ask, auto-resolves."
   }
 ]

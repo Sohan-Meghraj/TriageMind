@@ -27,10 +27,10 @@ export function validateDraft(
   ctx: GuardrailContext,
 ): GuardrailResult {
   const issues: string[] = [];
-  const text = draft.reply ?? "";
+  const text = draft.reply ?? draft.evidenceRequest ?? "";
 
-  // Briefings (escalation path) skip customer-facing checks.
-  if (!draft.reply) {
+  // Briefings (escalation path) are internal — skip customer-facing checks.
+  if (!draft.reply && !draft.evidenceRequest) {
     return { passed: true, issues };
   }
 
@@ -52,8 +52,9 @@ export function validateDraft(
     }
   }
 
-  // Rule 2: factual claims should be grounded in the KB.
-  if (ctx.citationsCount === 0) {
+  // Rule 2: a resolving reply makes factual claims that must be grounded. An
+  // evidence request makes no such claims, so it's exempt.
+  if (draft.reply && ctx.citationsCount === 0) {
     issues.push("Reply has no KB citations backing its claims.");
   }
 

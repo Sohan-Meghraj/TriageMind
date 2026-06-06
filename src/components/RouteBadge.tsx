@@ -3,17 +3,22 @@
 import type { Action } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
 
+const ROUTE_META: Record<Action, { className: string; label: string }> = {
+  AUTO_RESOLVE: {
+    className: "bg-emerald-600 hover:bg-emerald-600",
+    label: "✓ Auto-resolve",
+  },
+  REQUEST_EVIDENCE: {
+    className: "bg-sky-600 hover:bg-sky-600",
+    label: "📷 Request evidence",
+  },
+  ESCALATE: {
+    className: "bg-amber-600 hover:bg-amber-600",
+    label: "↗ Escalate",
+  },
+};
+
 export function RouteBadge({ action }: { action: Action }) {
-  const isAuto = action === "AUTO_RESOLVE";
-  return (
-    <Badge
-      className={
-        isAuto
-          ? "bg-emerald-600 hover:bg-emerald-600"
-          : "bg-amber-600 hover:bg-amber-600"
-      }
-    >
-      {isAuto ? "✓ Auto-resolve" : "↗ Escalate"}
-    </Badge>
-  );
+  const { className, label } = ROUTE_META[action];
+  return <Badge className={className}>{label}</Badge>;
 }

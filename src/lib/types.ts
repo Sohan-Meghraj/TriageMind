@@ -4,8 +4,17 @@
 /** Auto-resolve only when confidence is at/above this AND self-check passes (§4.2). */
 export const CONFIDENCE_THRESHOLD = 0.75;
 
+/**
+ * Damage/defect refunds at or above this value (USD) with no photo on file are
+ * routed to REQUEST_EVIDENCE — we ask the customer for a photo (framed as
+ * "help us find the cause") before resolving. Below this, the friction of
+ * asking a genuine customer outweighs the occasional fraud loss, so we still
+ * auto-resolve.
+ */
+export const EVIDENCE_THRESHOLD = 25;
+
 export type Severity = "LOW" | "MED" | "HIGH";
-export type Action = "AUTO_RESOLVE" | "ESCALATE";
+export type Action = "AUTO_RESOLVE" | "REQUEST_EVIDENCE" | "ESCALATE";
 
 /** The 6 reasoning steps, in order (§4.1). */
 export type StepName =
@@ -20,6 +29,8 @@ export type Complaint = {
   id: string;
   text: string;
   customerEmail?: string;
+  /** True when the customer has already attached photo evidence. */
+  hasPhoto?: boolean;
 };
 
 export type Citation = { doc: string; snippet: string };
@@ -41,7 +52,14 @@ export type DecideStep = {
   confidence: number; // 0..1
   reason: string;
 };
-export type DraftStep = { reply?: string; briefing?: string };
+export type DraftStep = {
+  /** Customer-facing reply that resolves the case (AUTO_RESOLVE). */
+  reply?: string;
+  /** Customer-facing message asking for a photo before resolving (REQUEST_EVIDENCE). */
+  evidenceRequest?: string;
+  /** Internal hand-off summary for a human agent (ESCALATE). */
+  briefing?: string;
+};
 export type SelfCheckStep = {
   passed: boolean;
   issues: string[];

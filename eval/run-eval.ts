@@ -17,6 +17,7 @@ type TestCase = {
   id: string;
   text: string;
   customerEmail?: string;
+  hasPhoto?: boolean;
   expected: { severity: Severity; action: Action };
   note?: string;
 };
@@ -32,6 +33,7 @@ async function triage(tc: TestCase): Promise<Reasoning> {
     id: tc.id,
     text: tc.text,
     customerEmail: tc.customerEmail,
+    hasPhoto: tc.hasPhoto,
   })) {
     if (ev.type === "step") {
       // @ts-expect-error — step name keys Reasoning; data matches by construction.

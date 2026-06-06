@@ -118,7 +118,7 @@ function StepBody({
       const s = reasoning.draft!;
       return (
         <pre className="whitespace-pre-wrap rounded-md bg-muted p-3 font-sans text-sm">
-          {s.reply ?? s.briefing}
+          {s.reply ?? s.evidenceRequest ?? s.briefing}
         </pre>
       );
     }
