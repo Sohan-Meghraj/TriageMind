@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "eval": "tsx eval/run-eval.ts"
+    "smoke": "tsx --env-file=.env.local scripts/smoke.ts",
+    "eval": "tsx --env-file=.env.local eval/run-eval.ts"
   },
   "dependencies": {
     "@azure/ai-agents": "^1.1.0",
