@@ -131,7 +131,7 @@ export default function Home() {
     <main className="flex flex-col">
       {/* Hero */}
       <section className="border-b border-border/60">
-        <div className="mx-auto grid w-full max-w-5xl items-center gap-12 px-4 pt-16 pb-20 lg:grid-cols-2 lg:pt-24">
+        <div className="mx-auto grid w-full max-w-5xl items-start gap-x-12 gap-y-10 px-4 pt-12 pb-16 lg:grid-cols-2 lg:pt-16">
           <div className="text-center lg:text-left">
             <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background/60 px-3 py-1 text-xs font-medium text-muted-foreground">
               <span className="size-1.5 rounded-full bg-emerald-500" />
@@ -167,6 +167,19 @@ export default function Home() {
                 See how it works
               </Link>
             </div>
+
+            <dl className="mt-10 flex justify-center gap-8 border-t border-border/60 pt-6 lg:justify-start">
+              {[
+                { n: "6", l: "reasoning steps" },
+                { n: "3", l: "routing outcomes" },
+                { n: "0", l: "guardrail violations" },
+              ].map((s) => (
+                <div key={s.l}>
+                  <dt className="text-2xl font-bold tracking-tight">{s.n}</dt>
+                  <dd className="text-xs text-muted-foreground">{s.l}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
 
           <div className="lg:pl-4">
@@ -204,7 +217,7 @@ export default function Home() {
       {/* How it works */}
       <section
         id="how-it-works"
-        className="mx-auto w-full max-w-5xl scroll-mt-20 px-4 py-20"
+        className="mx-auto w-full max-w-5xl scroll-mt-20 px-4 py-16"
       >
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-bold tracking-tight">
@@ -240,7 +253,7 @@ export default function Home() {
 
       {/* Three routes */}
       <section className="border-t border-border/60 bg-muted/30">
-        <div className="mx-auto w-full max-w-5xl px-4 py-20">
+        <div className="mx-auto w-full max-w-5xl px-4 py-16">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-bold tracking-tight">
               One decision, three honest outcomes
@@ -284,7 +297,7 @@ export default function Home() {
 
       {/* Why it's different */}
       <section className="border-t border-border/60">
-        <div className="mx-auto w-full max-w-5xl px-4 py-20">
+        <div className="mx-auto w-full max-w-5xl px-4 py-16">
           <div className="mx-auto max-w-2xl text-center">
             <span className="text-sm font-semibold uppercase tracking-wider text-primary">
               The X-factors
@@ -347,7 +360,7 @@ export default function Home() {
       </section>
 
       {/* CTA */}
-      <section className="mx-auto w-full max-w-3xl px-4 py-20 text-center">
+      <section className="mx-auto w-full max-w-3xl px-4 py-16 text-center">
         <h2 className="text-3xl font-bold tracking-tight">
           See it think for itself.
         </h2>
