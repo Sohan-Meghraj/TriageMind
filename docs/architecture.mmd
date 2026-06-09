@@ -1,0 +1,22 @@
+flowchart TB
+  U["Customer complaint"] --> UI["Browser — Next.js glass-box UI<br/>(6 reasoning steps stream in live)"]
+  UI -- "POST /api/triage (SSE)" --> API["Next.js route handler<br/>+ guardrail validator + injection guard"]
+  API -- "@azure/ai-agents" --> F
+
+  subgraph F["Microsoft Foundry — Agent Service"]
+    direction TB
+    M["Model: gpt-4o-mini"]
+    FS["File Search<br/>KB docs + citations"]
+    TOOLS["Function tools<br/>lookupOrder · checkRefundEligibility · createTicket"]
+    SC["Self-check + self-correction loop"]
+    M --- FS
+    M --- TOOLS
+    M --- SC
+  end
+
+  F --> G{"Confidence &ge; 0.75<br/>self-check passed<br/>no manipulation?"}
+  G -- "confident, on-policy" --> AR["AUTO_RESOLVE<br/>grounded, cited reply"]
+  G -- "verifiable damage &ge; $25" --> RE["REQUEST_EVIDENCE<br/>ask for a photo first"]
+  G -- "unsure / risky / injected" --> ES["ESCALATE<br/>full human briefing"]
+
+  EVAL["Eval harness<br/>27 labeled cases &rarr; accuracy"] -.-> API
