@@ -7,7 +7,7 @@
 // Skeleton version: scores against the ~2 placeholder cases in testset.json
 // using the stubbed agent. Expand testset.json to ~25 cases later.
 
-import { readFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { runTriage } from "../src/lib/agent";
@@ -43,11 +43,24 @@ async function triage(tc: TestCase): Promise<Reasoning> {
   return reasoning as Reasoning;
 }
 
+type CaseResult = {
+  id: string;
+  expectedSeverity: Severity;
+  actualSeverity: Severity;
+  sevOk: boolean;
+  expectedAction: Action;
+  actualAction: Action;
+  actOk: boolean;
+  confidence: number;
+  passed: boolean;
+};
+
 async function main() {
   let sevCorrect = 0;
   let actCorrect = 0;
   let guardrailViolations = 0;
   const rows: string[] = [];
+  const cases: CaseResult[] = [];
 
   for (const tc of testset) {
     const r = await triage(tc);
@@ -56,6 +69,17 @@ async function main() {
     if (sevOk) sevCorrect++;
     if (actOk) actCorrect++;
     if (!r.selfCheck.passed) guardrailViolations++;
+    cases.push({
+      id: tc.id,
+      expectedSeverity: tc.expected.severity,
+      actualSeverity: r.classify.severity,
+      sevOk,
+      expectedAction: tc.expected.action,
+      actualAction: r.decide.action,
+      actOk,
+      confidence: r.decide.confidence,
+      passed: r.selfCheck.passed,
+    });
     rows.push(
       `${tc.id}\t${r.classify.severity}${sevOk ? "✓" : "✗"}\t${r.decide.action}${actOk ? "✓" : "✗"}\tconf=${r.decide.confidence.toFixed(2)}`,
     );
@@ -63,6 +87,11 @@ async function main() {
 
   const n = testset.length;
   const pct = (x: number) => `${Math.round((x / n) * 100)}%`;
+  const tally = <T extends string>(xs: T[]): Record<T, number> =>
+    xs.reduce(
+      (acc, x) => ((acc[x] = (acc[x] ?? 0) + 1), acc),
+      {} as Record<T, number>,
+    );
 
   console.log("\nTriageMind — Eval Results");
   console.log("=========================");
@@ -73,6 +102,27 @@ async function main() {
   console.log(`Escalation accuracy:     ${pct(actCorrect)} (${actCorrect}/${n})`);
   console.log(`Guardrail violations:    ${guardrailViolations} (target: 0)`);
   console.log("");
+
+  // Structured results for the dashboard to render.
+  const results = {
+    generatedAt: new Date().toISOString(),
+    total: n,
+    classificationAccuracyPct: Math.round((sevCorrect / n) * 100),
+    escalationAccuracyPct: Math.round((actCorrect / n) * 100),
+    guardrailViolations,
+    avgConfidence: Number(
+      (cases.reduce((s, c) => s + c.confidence, 0) / n).toFixed(2),
+    ),
+    routeDistribution: tally(cases.map((c) => c.actualAction)),
+    severityDistribution: tally(cases.map((c) => c.actualSeverity)),
+    cases,
+  };
+  writeFileSync(
+    join(here, "results.json"),
+    JSON.stringify(results, null, 2) + "\n",
+    "utf8",
+  );
+  console.log("Wrote eval/results.json");
 }
 
 main().catch((e) => {

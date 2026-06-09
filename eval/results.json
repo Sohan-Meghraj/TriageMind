@@ -1,0 +1,317 @@
+{
+  "generatedAt": "2026-06-09T12:59:48.140Z",
+  "total": 27,
+  "classificationAccuracyPct": 70,
+  "escalationAccuracyPct": 70,
+  "guardrailViolations": 0,
+  "avgConfidence": 0.78,
+  "routeDistribution": {
+    "REQUEST_EVIDENCE": 3,
+    "ESCALATE": 6,
+    "AUTO_RESOLVE": 18
+  },
+  "severityDistribution": {
+    "LOW": 21,
+    "HIGH": 5,
+    "MED": 1
+  },
+  "cases": [
+    {
+      "id": "t1",
+      "expectedSeverity": "LOW",
+      "actualSeverity": "LOW",
+      "sevOk": true,
+      "expectedAction": "REQUEST_EVIDENCE",
+      "actualAction": "REQUEST_EVIDENCE",
+      "actOk": true,
+      "confidence": 0.9,
+      "passed": true
+    },
+    {
+      "id": "t2",
+      "expectedSeverity": "HIGH",
+      "actualSeverity": "HIGH",
+      "sevOk": true,
+      "expectedAction": "ESCALATE",
+      "actualAction": "ESCALATE",
+      "actOk": true,
+      "confidence": 0.35,
+      "passed": true
+    },
+    {
+      "id": "t3",
+      "expectedSeverity": "LOW",
+      "actualSeverity": "LOW",
+      "sevOk": true,
+      "expectedAction": "AUTO_RESOLVE",
+      "actualAction": "AUTO_RESOLVE",
+      "actOk": true,
+      "confidence": 0.9,
+      "passed": true
+    },
+    {
+      "id": "t4",
+      "expectedSeverity": "LOW",
+      "actualSeverity": "LOW",
+      "sevOk": true,
+      "expectedAction": "AUTO_RESOLVE",
+      "actualAction": "AUTO_RESOLVE",
+      "actOk": true,
+      "confidence": 0.9,
+      "passed": true
+    },
+    {
+      "id": "t5",
+      "expectedSeverity": "LOW",
+      "actualSeverity": "LOW",
+      "sevOk": true,
+      "expectedAction": "AUTO_RESOLVE",
+      "actualAction": "AUTO_RESOLVE",
+      "actOk": true,
+      "confidence": 0.9,
+      "passed": true
+    },
+    {
+      "id": "t6",
+      "expectedSeverity": "LOW",
+      "actualSeverity": "LOW",
+      "sevOk": true,
+      "expectedAction": "AUTO_RESOLVE",
+      "actualAction": "AUTO_RESOLVE",
+      "actOk": true,
+      "confidence": 0.9,
+      "passed": true
+    },
+    {
+      "id": "t7",
+      "expectedSeverity": "LOW",
+      "actualSeverity": "LOW",
+      "sevOk": true,
+      "expectedAction": "REQUEST_EVIDENCE",
+      "actualAction": "REQUEST_EVIDENCE",
+      "actOk": true,
+      "confidence": 0.9,
+      "passed": true
+    },
+    {
+      "id": "t8",
+      "expectedSeverity": "MED",
+      "actualSeverity": "MED",
+      "sevOk": true,
+      "expectedAction": "ESCALATE",
+      "actualAction": "ESCALATE",
+      "actOk": true,
+      "confidence": 0.7,
+      "passed": true
+    },
+    {
+      "id": "t9",
+      "expectedSeverity": "HIGH",
+      "actualSeverity": "LOW",
+      "sevOk": false,
+      "expectedAction": "ESCALATE",
+      "actualAction": "AUTO_RESOLVE",
+      "actOk": false,
+      "confidence": 0.9,
+      "passed": true
+    },
+    {
+      "id": "t10",
+      "expectedSeverity": "HIGH",
+      "actualSeverity": "LOW",
+      "sevOk": false,
+      "expectedAction": "ESCALATE",
+      "actualAction": "AUTO_RESOLVE",
+      "actOk": false,
+      "confidence": 0.9,
+      "passed": true
+    },
+    {
+      "id": "t11",
+      "expectedSeverity": "LOW",
+      "actualSeverity": "LOW",
+      "sevOk": true,
+      "expectedAction": "AUTO_RESOLVE",
+      "actualAction": "AUTO_RESOLVE",
+      "actOk": true,
+      "confidence": 0.9,
+      "passed": true
+    },
+    {
+      "id": "t12",
+      "expectedSeverity": "LOW",
+      "actualSeverity": "LOW",
+      "sevOk": true,
+      "expectedAction": "AUTO_RESOLVE",
+      "actualAction": "AUTO_RESOLVE",
+      "actOk": true,
+      "confidence": 0.9,
+      "passed": true
+    },
+    {
+      "id": "t13",
+      "expectedSeverity": "HIGH",
+      "actualSeverity": "HIGH",
+      "sevOk": true,
+      "expectedAction": "ESCALATE",
+      "actualAction": "ESCALATE",
+      "actOk": true,
+      "confidence": 0.35,
+      "passed": true
+    },
+    {
+      "id": "t14",
+      "expectedSeverity": "LOW",
+      "actualSeverity": "LOW",
+      "sevOk": true,
+      "expectedAction": "AUTO_RESOLVE",
+      "actualAction": "AUTO_RESOLVE",
+      "actOk": true,
+      "confidence": 0.9,
+      "passed": true
+    },
+    {
+      "id": "t15",
+      "expectedSeverity": "HIGH",
+      "actualSeverity": "LOW",
+      "sevOk": false,
+      "expectedAction": "ESCALATE",
+      "actualAction": "AUTO_RESOLVE",
+      "actOk": false,
+      "confidence": 0.9,
+      "passed": true
+    },
+    {
+      "id": "t16",
+      "expectedSeverity": "LOW",
+      "actualSeverity": "LOW",
+      "sevOk": true,
+      "expectedAction": "AUTO_RESOLVE",
+      "actualAction": "AUTO_RESOLVE",
+      "actOk": true,
+      "confidence": 0.9,
+      "passed": true
+    },
+    {
+      "id": "t17",
+      "expectedSeverity": "MED",
+      "actualSeverity": "HIGH",
+      "sevOk": false,
+      "expectedAction": "ESCALATE",
+      "actualAction": "ESCALATE",
+      "actOk": true,
+      "confidence": 0.45,
+      "passed": true
+    },
+    {
+      "id": "t18",
+      "expectedSeverity": "MED",
+      "actualSeverity": "LOW",
+      "sevOk": false,
+      "expectedAction": "ESCALATE",
+      "actualAction": "AUTO_RESOLVE",
+      "actOk": false,
+      "confidence": 0.9,
+      "passed": true
+    },
+    {
+      "id": "t19",
+      "expectedSeverity": "MED",
+      "actualSeverity": "LOW",
+      "sevOk": false,
+      "expectedAction": "ESCALATE",
+      "actualAction": "AUTO_RESOLVE",
+      "actOk": false,
+      "confidence": 0.9,
+      "passed": true
+    },
+    {
+      "id": "t20",
+      "expectedSeverity": "LOW",
+      "actualSeverity": "LOW",
+      "sevOk": true,
+      "expectedAction": "REQUEST_EVIDENCE",
+      "actualAction": "AUTO_RESOLVE",
+      "actOk": false,
+      "confidence": 0.9,
+      "passed": true
+    },
+    {
+      "id": "t21",
+      "expectedSeverity": "LOW",
+      "actualSeverity": "LOW",
+      "sevOk": true,
+      "expectedAction": "AUTO_RESOLVE",
+      "actualAction": "AUTO_RESOLVE",
+      "actOk": true,
+      "confidence": 0.9,
+      "passed": true
+    },
+    {
+      "id": "t22",
+      "expectedSeverity": "HIGH",
+      "actualSeverity": "LOW",
+      "sevOk": false,
+      "expectedAction": "ESCALATE",
+      "actualAction": "AUTO_RESOLVE",
+      "actOk": false,
+      "confidence": 0.9,
+      "passed": true
+    },
+    {
+      "id": "t23",
+      "expectedSeverity": "LOW",
+      "actualSeverity": "LOW",
+      "sevOk": true,
+      "expectedAction": "REQUEST_EVIDENCE",
+      "actualAction": "REQUEST_EVIDENCE",
+      "actOk": true,
+      "confidence": 0.9,
+      "passed": true
+    },
+    {
+      "id": "t24",
+      "expectedSeverity": "LOW",
+      "actualSeverity": "LOW",
+      "sevOk": true,
+      "expectedAction": "AUTO_RESOLVE",
+      "actualAction": "AUTO_RESOLVE",
+      "actOk": true,
+      "confidence": 0.9,
+      "passed": true
+    },
+    {
+      "id": "t25",
+      "expectedSeverity": "HIGH",
+      "actualSeverity": "LOW",
+      "sevOk": false,
+      "expectedAction": "ESCALATE",
+      "actualAction": "AUTO_RESOLVE",
+      "actOk": false,
+      "confidence": 0.9,
+      "passed": true
+    },
+    {
+      "id": "t26",
+      "expectedSeverity": "HIGH",
+      "actualSeverity": "HIGH",
+      "sevOk": true,
+      "expectedAction": "ESCALATE",
+      "actualAction": "ESCALATE",
+      "actOk": true,
+      "confidence": 0.2,
+      "passed": true
+    },
+    {
+      "id": "t27",
+      "expectedSeverity": "HIGH",
+      "actualSeverity": "HIGH",
+      "sevOk": true,
+      "expectedAction": "ESCALATE",
+      "actualAction": "ESCALATE",
+      "actOk": true,
+      "confidence": 0.2,
+      "passed": true
+    }
+  ]
+}

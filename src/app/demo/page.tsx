@@ -14,6 +14,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { ReasoningTrail } from "@/components/ReasoningTrail";
+import { recordSession } from "@/components/SessionPanel";
 
 const SAMPLES = [
   {
@@ -64,6 +65,14 @@ export default function Home() {
           const event = JSON.parse(line.slice(6)) as StepEvent;
           if (event.type === "step") {
             setReasoning((prev) => ({ ...prev, [event.step]: event.data }));
+          } else if (event.type === "done") {
+            const { decide, classify } = event.result.reasoning;
+            recordSession({
+              action: decide.action,
+              severity: classify.severity,
+              confidence: decide.confidence,
+              at: Date.now(),
+            });
           } else if (event.type === "error") {
             setError(event.message);
           }

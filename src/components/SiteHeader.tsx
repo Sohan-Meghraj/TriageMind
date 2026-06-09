@@ -20,6 +20,12 @@ export function SiteHeader() {
           >
             How it works
           </Link>
+          <Link
+            href="/dashboard"
+            className={cn(buttonVariants({ variant: "ghost", size: "sm" }), "hidden sm:inline-flex")}
+          >
+            Dashboard
+          </Link>
           <Link href="/demo" className={cn(buttonVariants({ size: "sm" }))}>
             Live demo
           </Link>
