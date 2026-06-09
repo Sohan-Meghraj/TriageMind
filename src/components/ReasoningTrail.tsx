@@ -1,6 +1,7 @@
 // The glass-box: renders the 6 reasoning steps as they stream in. Each step
 // becomes a card the moment its data arrives (§4.1).
 
+import { FileText } from "lucide-react";
 import type { Reasoning } from "@/lib/types";
 import {
   Card,
@@ -11,6 +12,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { ConfidenceMeter } from "./ConfidenceMeter";
 import { RouteBadge } from "./RouteBadge";
+import { CopyButton } from "./CopyButton";
 
 const STEP_META: { key: keyof Reasoning; n: number; label: string }[] = [
   { key: "understand", n: 1, label: "Understand" },
@@ -96,9 +98,15 @@ function StepBody({
       return (
         <ul className="space-y-2">
           {s.citations.map((c, i) => (
-            <li key={i} className="border-l-2 border-muted pl-3">
-              <span className="font-mono text-xs text-primary">{c.doc}</span>
-              <p className="text-muted-foreground">{c.snippet}</p>
+            <li
+              key={i}
+              className="rounded-md border border-border bg-muted/40 p-2.5"
+            >
+              <span className="inline-flex items-center gap-1.5 rounded bg-background px-1.5 py-0.5 font-mono text-xs text-primary ring-1 ring-border">
+                <FileText className="size-3" />
+                {c.doc}
+              </span>
+              <p className="mt-1.5 text-muted-foreground">{c.snippet}</p>
             </li>
           ))}
         </ul>
@@ -116,10 +124,24 @@ function StepBody({
     }
     case "draft": {
       const s = reasoning.draft!;
+      const content = s.reply ?? s.evidenceRequest ?? s.briefing ?? "";
+      const kind = s.reply
+        ? "Customer reply"
+        : s.evidenceRequest
+          ? "Evidence request"
+          : "Human briefing";
       return (
-        <pre className="whitespace-pre-wrap rounded-md bg-muted p-3 font-sans text-sm">
-          {s.reply ?? s.evidenceRequest ?? s.briefing}
-        </pre>
+        <div className="space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-medium text-muted-foreground">
+              {kind}
+            </span>
+            <CopyButton text={content} />
+          </div>
+          <pre className="whitespace-pre-wrap rounded-md bg-muted p-3 font-sans text-sm">
+            {content}
+          </pre>
+        </div>
       );
     }
     case "selfCheck": {
