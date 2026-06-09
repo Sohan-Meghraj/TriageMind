@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 import type { Reasoning, StepEvent } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -77,6 +79,13 @@ export default function Home() {
   return (
     <main className="mx-auto w-full max-w-2xl px-4 py-10">
       <header className="mb-8">
+        <Link
+          href="/"
+          className="mb-4 inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+        >
+          <ArrowLeft className="size-4" />
+          Back to home
+        </Link>
         <h1 className="text-3xl font-bold tracking-tight">Live demo</h1>
         <p className="text-muted-foreground">
           Paste a customer complaint and watch the agent reason in the open,
