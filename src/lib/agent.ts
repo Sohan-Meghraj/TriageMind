@@ -24,7 +24,7 @@ import {
   type UnderstandStep,
 } from "./types";
 import { checkRefundEligibility, lookupOrder } from "./tools";
-import { validateDraft } from "./guardrails";
+import { detectPromptInjection, validateDraft } from "./guardrails";
 
 const delay = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
 
@@ -147,9 +147,14 @@ export async function* runTriage(
   const u = understand(text);
   yield { type: "step", step: "understand", data: u };
 
+  // A manipulation attempt is a security concern, not a routine complaint —
+  // treat it as high severity so it can never quietly auto-resolve.
+  const injection = detectPromptInjection(text);
+
   // Step 2 — Classify
   await delay(350);
   const c = classify(text, u.churnRisk);
+  if (injection.detected) c.severity = "HIGH";
   yield { type: "step", step: "classify", data: c };
 
   // Step 3 — Ground (RAG + citations)
@@ -176,11 +181,18 @@ export async function* runTriage(
   if (u.churnRisk) confidence -= 0.1;
   confidence = Math.max(0.1, Math.min(0.99, confidence));
 
+  // A detected manipulation attempt overrides everything: never let an injected
+  // instruction talk the agent into auto-resolving. Route straight to a human.
+  if (injection.detected) confidence = Math.min(confidence, 0.2);
+
   // Escalation takes priority — a furious/at-risk customer goes to a human, not
   // a photo request. Otherwise, verifiable damage claims request evidence first.
   let action: Action;
   let reason: string;
-  if (confidence < CONFIDENCE_THRESHOLD) {
+  if (injection.detected) {
+    action = "ESCALATE";
+    reason = `Prompt-injection guardrail: ${injection.reason} Routed to a human; no automated action taken.`;
+  } else if (confidence < CONFIDENCE_THRESHOLD) {
     action = "ESCALATE";
     reason = `Severity ${c.severity}${u.churnRisk ? " + churn risk" : ""} lowers confidence below the ${CONFIDENCE_THRESHOLD} threshold.`;
   } else if (verification.needed) {
